@@ -1,9 +1,3 @@
-# Compiled object files
 *.o
 objs/
-
-# Executables
 philo
-
-# OS-specific files
-.DS_Store
