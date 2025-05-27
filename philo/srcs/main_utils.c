@@ -6,20 +6,33 @@ int	init_simulation(t_table *table)
 
 	i = 0;
 	table->start_time = get_time();
+	if ((table->num_of_philos % 2) != 0)
+	{
+		while (i < 3 && i < table->num_of_philos)
+		{
+			table->philos[i].last_meal_time = table->start_time;
+			if (pthread_create(&table->philos[i].thread, NULL,
+				routine_special_group, &table->philos[i]) != 0)
+			{
+				printf("%s\n", ERR_THREAD);
+				return (0);
+			}
+			i++;
+		}
+	}
 	while (i < table->num_of_philos)
 	{
 		table->philos[i].last_meal_time = table->start_time;
 		if (pthread_create(&table->philos[i].thread, NULL,
-			philosopher_routine, &table->philos[i]) != 0)
+			routine_even_pair, &table->philos[i]) != 0)
 		{
 			printf("%s\n", ERR_THREAD);
 			return (0);
 		}
-		pthread_detach(table->philos[i].thread);
-		i++;	
-		usleep(100);
+		i++;
 	}
-	if (pthread_create(&table->monitor, NULL, monitor_routine, table) != 0)
+	if (pthread_create(&table->monitor, NULL,
+		monitor_routine, table) != 0)
 	{
 		printf("%s\n", ERR_THREAD);
 		return (0);
@@ -29,6 +42,14 @@ int	init_simulation(t_table *table)
 
 void	finish_simulation(t_table *table)
 {
+	int i;
+
 	pthread_join(table->monitor, NULL);
+	i = 0;
+	while (i < table->num_of_philos)
+	{
+		pthread_join(table->philos[i].thread, NULL);
+		i++;
+	}
 	cleanup(table);
 }

@@ -15,7 +15,8 @@ SRCS	= $(SRCS_DIR)main.c \
 		  $(SRCS_DIR)monitor.c \
 		  $(SRCS_DIR)cleanup.c \
 		  $(SRCS_DIR)main_utils.c \
-		  $(SRCS_DIR)init_utils.c
+		  $(SRCS_DIR)init_utils.c \
+		  $(SRCS_DIR)routines_utils.c
 
 OBJS	= $(patsubst $(SRCS_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS))
 

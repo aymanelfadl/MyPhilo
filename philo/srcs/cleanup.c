@@ -13,6 +13,7 @@ void	destroy_mutexes(t_table *table)
 	pthread_mutex_destroy(&table->print_mutex);
 	pthread_mutex_destroy(&table->death_mutex);
 	pthread_mutex_destroy(&table->meal_mutex);
+	pthread_mutex_destroy(&table->turn_mutex);
 }
 
 void	cleanup(t_table *table)

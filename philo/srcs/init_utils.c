@@ -63,23 +63,68 @@ int	init_additional_mutexes(t_table *table)
 		printf("%s\n", ERR_MUTEX);
 		return (0);
 	}
+	if (pthread_mutex_init(&table->turn_mutex, NULL) != 0)
+	{
+		printf("%s\n", ERR_MUTEX);
+		return (0);
+	}
 	return (1);
 }
 
-void	set_philo_forks(t_table *table)
+void	init_philo_data(t_table *table)
 {
 	int	i;
-	int	temp;
+	int	num;
 
 	i = 0;
-	while (i < table->num_of_philos)
+	num = table->num_of_philos;
+	while (i < num)
 	{
-		if (i % 2 != 0)
-		{
-			temp = table->philos[i].left_fork;
-			table->philos[i].left_fork = table->philos[i].right_fork;
-			table->philos[i].right_fork = temp;
-		}
+		table->philos[i].id = i + 1;
+		table->philos[i].meals_eaten = 0;
+		table->philos[i].last_meal_time = 0;
+		table->philos[i].table = table;
 		i++;
 	}
 }
+
+void	assign_forks_odd(t_table *table)
+{
+	int	i;
+	int	num;
+
+	num = table->num_of_philos;
+	table->philos[0].left_fork = 0;
+	table->philos[0].right_fork = 1;
+	table->philos[1].left_fork = 1;
+	table->philos[1].right_fork = 2;
+	table->philos[2].left_fork = 2;
+	table->philos[2].right_fork = 0;
+	i = 3;
+	while (i < num - 1)
+	{
+		table->philos[i].left_fork = i;
+		table->philos[i].right_fork = i + 1;
+		table->philos[i + 1].left_fork = i + 1;
+		table->philos[i + 1].right_fork = i;
+		i += 2;
+	}
+}
+
+void	assign_forks_even(t_table *table)
+{
+	int	i;
+	int	num;
+
+	i = 0;
+	num = table->num_of_philos;
+	while (i < num - 1)
+	{
+		table->philos[i].left_fork = i;
+		table->philos[i].right_fork = i + 1;
+		table->philos[i + 1].left_fork = i + 1;
+		table->philos[i + 1].right_fork = i;
+		i += 2;
+	}
+}
+

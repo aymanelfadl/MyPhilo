@@ -6,7 +6,6 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
-# include <stdbool.h>
 # include <limits.h>
 
 # define ERR_ARGS "Invalid number of arguments"
@@ -37,6 +36,8 @@ struct s_table
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	meal_mutex;
+	pthread_mutex_t	turn_mutex; // Added turn_mutex
+	int				current_turn; // Added current_turn
 	t_philo			*philos;
 	pthread_t		monitor;
 };
@@ -63,11 +64,12 @@ long long	get_time(void);
 void		print_state(t_philo *philo, int state);
 void		smart_sleep(long long time_to_wait);
 int			check_args(int argc, char **argv);
+int			wait_for_turn(t_philo *philo);
 
 /* Philosopher actions */
-void		*philosopher_routine(void *arg);
-void		take_forks(t_philo *philo);
+void		take_forks(t_philo *philo, int special);
 void		eat(t_philo *philo);
+void		special_eat(t_philo *philo);
 void		sleep_and_think(t_philo *philo);
 int			philo_should_exit(t_philo *philo);
 
@@ -82,7 +84,9 @@ int			check_numeric_args(char **argv);
 int			validate_table_values(t_table *table, int argc);
 int			allocate_table_memory(t_table *table);
 int			init_additional_mutexes(t_table *table);
-void		set_philo_forks(t_table *table);
+void		init_philo_data(t_table *table);
+void		assign_forks_odd(t_table *table);
+void		assign_forks_even(t_table *table);
 
 /* Main utility functions */
 int			init_simulation(t_table *table);
@@ -93,5 +97,7 @@ int			check_philosopher_death(t_table *table, int i);
 int			check_philo_ate_enough(t_table *table, int i);
 int			check_all_ate_enough(t_table *table);
 int			monitor_each_philosopher(t_table *table);
+void		*routine_even_pair(void *arg);
+void		*routine_special_group(void *arg);
 
 #endif
