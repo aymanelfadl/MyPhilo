@@ -4,8 +4,7 @@ static int	run_philo_simulation(t_table *table)
 {
 	if (!init_mutex(table))
 		return (0);
-	if (!init_philos(table))
-		return (0);
+	init_philos(table);
 	if (!init_simulation(table))
 		return (0);
 	return (1);

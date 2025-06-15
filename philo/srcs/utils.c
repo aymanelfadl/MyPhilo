@@ -25,14 +25,6 @@ int	ft_atoi(const char *str)
 	return ((int)(result * sign));
 }
 
-long long	get_time(void)
-{
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
-
 static void	print_philo_state(t_philo *philo, int state)
 {
 	printf("%lld ", get_time() - philo->table->start_time);
@@ -64,15 +56,6 @@ void	print_state(t_philo *philo, int state)
 		pthread_mutex_unlock(&philo->table->death_mutex);
 	}
 	pthread_mutex_unlock(&philo->table->print_mutex);
-}
-
-void	smart_sleep(long long time_to_wait)
-{
-	long long	start;
-
-	start = get_time();
-	while (get_time() - start < time_to_wait)
-		usleep(100);
 }
 
 int	check_death(t_philo *philo)

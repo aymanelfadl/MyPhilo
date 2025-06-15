@@ -2,13 +2,23 @@
 
 int	check_args(int argc, char **argv)
 {
+	int	i;
+	int	j;
+
 	if (argc != 5 && argc != 6)
+		return (printf("%s\n", "Invalid number of arguments"), 0);
+	i = 1;
+	while (argv[i])
 	{
-		printf("%s\n", ERR_ARGS);
-		return (0);
+		j = 0;
+		while (argv[i][j])
+		{
+			if (argv[i][j] < '0' || argv[i][j] > '9')
+				return(printf("%s\n", "Invalid input arguments"), 0);
+			j++;
+		}
+		i++;
 	}
-	if (!check_numeric_args(argv))
-		return (0);
 	return (1);
 }
 
@@ -33,31 +43,39 @@ int	init_mutex(t_table *table)
 {
 	int	i;
 
-	i = 0;
-	while (i < table->num_of_philos)
+	i = -1;
+	while (++i < table->num_of_philos)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
-		{
-			printf("%s\n", ERR_MUTEX);
-			return (0);
-		}
-		i++;
+			return (printf("%s\n", "Mutex initialization failed"), 0);
 	}
-	if (!init_additional_mutexes(table))
-		return (0);
+	if (pthread_mutex_init(&table->print_mutex, NULL) != 0)
+		return (printf("%s\n", "Mutex initialization failed"), 0);
+	if (pthread_mutex_init(&table->death_mutex, NULL) != 0)
+		return (printf("%s\n", "Mutex initialization failed"), 0);
+	if (pthread_mutex_init(&table->meal_mutex, NULL) != 0)
+		return (printf("%s\n", "Mutex initialization failed"), 0);
+	if (pthread_mutex_init(&table->turn_mutex, NULL) != 0)
+		return (printf("%s\n", "Mutex initialization failed"), 0);
 	return (1);
 }
 
-int	init_philos(t_table *table)
+void	init_philos(t_table *table)
 {
-	int	num;
+	int	i;
 
-	num = table->num_of_philos;
-	init_philo_data(table);
-	if (num % 2 != 0)
-		assign_forks_odd(table);
-	else
+	i = 0;
+	while (i < table->num_of_philos)
+	{
+		table->philos[i].id = i + 1;
+		table->philos[i].meals_eaten = 0;
+		table->philos[i].last_meal_time = 0;
+		table->philos[i].table = table;
+		i++;
+	}
+	if (table->num_of_philos % 2 == 0)
 		assign_forks_even(table);
-	return (1);
+	else
+		assign_forks_odd(table);
 }
 

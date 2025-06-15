@@ -1,7 +1,7 @@
 NAME	= philo
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g3 -O0 -fsanitize=thread -pthread
 RM		= rm -f
 
 SRCS_DIR	= srcs/
