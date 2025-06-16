@@ -64,7 +64,8 @@ int			check_args(int argc, char **argv);
 int			wait_for_turn(t_philo *philo);
 
 /* Philosopher actions */
-void		take_forks(t_philo *philo, int special);
+int			take_special_forks(t_philo *philo);
+void		take_forks(t_philo *philo);
 void		eat(t_philo *philo);
 void		special_eat(t_philo *philo);
 void		sleep_and_think(t_philo *philo);
@@ -85,6 +86,7 @@ void		assign_forks_even(t_table *table);
 /* Main utility functions */
 int			init_simulation(t_table *table);
 void		finish_simulation(t_table *table);
+void		custom_sleep(int time_ms);
 
 /* Monitoring functions */
 int			check_philosopher_death(t_table *table, int i);

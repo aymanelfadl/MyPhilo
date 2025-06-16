@@ -78,7 +78,7 @@ void	*monitor_routine(void *arg)
 
 	table = (t_table *)arg;
 	
-	usleep(100);
+	custom_sleep(100);
 	
 	while (1)
 	{
@@ -88,7 +88,7 @@ void	*monitor_routine(void *arg)
 		if (check_all_ate_enough(table))
 			return (NULL);
 			
-		usleep(500);
+		custom_sleep(500);
 	}
 	return (NULL);
 }
