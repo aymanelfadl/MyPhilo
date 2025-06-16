@@ -77,18 +77,12 @@ void	*monitor_routine(void *arg)
 	t_table	*table;
 
 	table = (t_table *)arg;
-	
-	custom_sleep(100);
-	
 	while (1)
 	{
 		if (monitor_each_philosopher(table))
 			return (NULL);
-			
 		if (check_all_ate_enough(table))
 			return (NULL);
-			
-		custom_sleep(500);
 	}
 	return (NULL);
 }

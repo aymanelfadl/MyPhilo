@@ -45,10 +45,10 @@ void	*routine_special_group(void *arg)
 	philo = (t_philo *)arg;
 	while (!check_death(philo))
 	{
-		if (!take_special_forks(philo))
-			special_eat(philo);
+		take_special_forks(philo);
 		if (philo_should_exit(philo))
 			break;
+		special_eat(philo);
 		sleep_and_think(philo);
 	}
 	return (NULL);

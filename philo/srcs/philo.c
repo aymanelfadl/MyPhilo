@@ -26,10 +26,9 @@ int	wait_for_turn(t_philo *philo)
 
 int	take_special_forks(t_philo *philo)
 {
-	if (wait_for_turn(philo) != 0)
-		return 1;
+	wait_for_turn(philo);
 	if (philo->table->num_of_philos == 1)
-		return	(handle_single_philo(philo), 0);
+		return	(handle_single_philo(philo), 1);
 	take_forks(philo);
 	return 0;
 }
@@ -92,8 +91,10 @@ void	sleep_and_think(t_philo *philo)
 
 int	philo_should_exit(t_philo *philo)
 {
-	if (philo->table->num_times_to_eat != -1 && 
-		philo->meals_eaten >= philo->table->num_times_to_eat)
+	if (philo->table->num_of_philos == 1)
+		return 1;
+	if ((philo->table->num_times_to_eat != -1 && 
+		philo->meals_eaten >= philo->table->num_times_to_eat) || philo->table->num_of_philos == 1 ) 
 		return (1);
 	return (0);
 }
