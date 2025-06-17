@@ -1,7 +1,8 @@
 NAME	= philo
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g3 -O0 -fsanitize=thread -pthread
+CFLAGS	= -Wall -Wextra -Werror 
+# -g3 -O0 -fsanitize=thread -pthread
 RM		= rm -f
 
 SRCS_DIR	= srcs/
@@ -11,12 +12,12 @@ OBJS_DIR	= objs/
 SRCS	= $(SRCS_DIR)main.c \
 		  $(SRCS_DIR)init.c \
 		  $(SRCS_DIR)utils.c \
-		  $(SRCS_DIR)philo.c \
+		  $(SRCS_DIR)special_philos.c \
 		  $(SRCS_DIR)monitor.c \
 		  $(SRCS_DIR)cleanup.c \
 		  $(SRCS_DIR)main_utils.c \
 		  $(SRCS_DIR)init_utils.c \
-		  $(SRCS_DIR)routines_utils.c
+		  $(SRCS_DIR)normal_philos.c
 
 OBJS	= $(patsubst $(SRCS_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS))
 

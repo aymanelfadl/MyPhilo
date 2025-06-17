@@ -11,9 +11,7 @@ int	check_philosopher_death(t_table *table, int i)
 	pthread_mutex_lock(&table->meal_mutex);
 	last_meal = table->philos[i].last_meal_time;
 	pthread_mutex_unlock(&table->meal_mutex);
-	
 	time_since_last_meal = current_time - last_meal;
-	
 	if (time_since_last_meal > table->time_to_die)
 	{
 		pthread_mutex_lock(&table->death_mutex);
@@ -40,6 +38,7 @@ int	check_philo_ate_enough(t_table *table, int i)
 	pthread_mutex_unlock(&table->meal_mutex);
 	return (1);
 }
+
 int	check_all_ate_enough(t_table *table)
 {
 	int	i;

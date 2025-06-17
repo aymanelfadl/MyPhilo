@@ -1,5 +1,14 @@
 #include "../includes/philo.h"
 
+void custom_sleep(int time_ms)
+{
+	long long start;
+
+	start = get_time();
+	while ((get_time() - start) < time_ms)
+		usleep(50);
+}
+
 int	ft_atoi(const char *str)
 {
 	int			i;
@@ -56,16 +65,4 @@ void	print_state(t_philo *philo, int state)
 		pthread_mutex_unlock(&philo->table->death_mutex);
 	}
 	pthread_mutex_unlock(&philo->table->print_mutex);
-}
-
-int	check_death(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->table->death_mutex);
-	if (philo->table->someone_died)
-	{
-		pthread_mutex_unlock(&philo->table->death_mutex);
-		return (1);
-	}
-	pthread_mutex_unlock(&philo->table->death_mutex);
-	return (0);
 }

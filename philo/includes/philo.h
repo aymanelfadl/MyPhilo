@@ -66,6 +66,7 @@ int			wait_for_turn(t_philo *philo);
 /* Philosopher actions */
 int			take_special_forks(t_philo *philo);
 void		take_forks(t_philo *philo);
+void		put_forks(t_philo *philo);
 void		eat(t_philo *philo);
 void		special_eat(t_philo *philo);
 void		sleep_and_think(t_philo *philo);

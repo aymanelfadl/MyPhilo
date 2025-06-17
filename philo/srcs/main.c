@@ -19,10 +19,7 @@ int	main(int argc, char **argv)
 	if (init_table(&table, argc, argv) == 0)
 		return (1);
 	if (!run_philo_simulation(&table))
-	{
-		cleanup(&table);
-		return (1);
-	}
+		return (cleanup(&table), 1);
 	finish_simulation(&table);
 	return (0);
 }

@@ -73,6 +73,11 @@ void	init_philos(t_table *table)
 		table->philos[i].table = table;
 		i++;
 	}
+	if (table->num_of_philos == 1)
+	{
+		table->philos[0].left_fork = 0;
+		return ;
+	}
 	if (table->num_of_philos % 2 == 0)
 		assign_forks_even(table);
 	else
