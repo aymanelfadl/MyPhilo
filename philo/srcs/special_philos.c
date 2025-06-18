@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   special_philos.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelfadl <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/18 11:37:21 by aelfadl           #+#    #+#             */
+/*   Updated: 2025/06/18 11:37:21 by aelfadl          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 static void	handle_single_philo(t_philo *philo)
@@ -42,9 +54,9 @@ int	take_special_forks(t_philo *philo)
 {
 	wait_for_turn(philo);
 	if (philo->table->num_of_philos == 1)
-		return	(handle_single_philo(philo), 1);
+		return (handle_single_philo(philo), 1);
 	take_forks(philo);
-	return 0;
+	return (0);
 }
 
 void	*routine_special_group(void *arg)
@@ -56,7 +68,7 @@ void	*routine_special_group(void *arg)
 	{
 		take_special_forks(philo);
 		if (philo_should_exit(philo))
-			break;
+			break ;
 		special_eat(philo);
 		sleep_and_think(philo);
 	}

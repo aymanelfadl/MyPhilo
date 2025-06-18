@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelfadl <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/18 11:37:21 by aelfadl           #+#    #+#             */
+/*   Updated: 2025/06/18 11:37:21 by aelfadl          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
-void custom_sleep(int time_ms)
+void	custom_sleep(int time_ms)
 {
-	long long start;
+	long long	start;
 
 	start = get_time();
 	while ((get_time() - start) < time_ms)
@@ -54,7 +66,6 @@ void	print_state(t_philo *philo, int state)
 {
 	pthread_mutex_lock(&philo->table->print_mutex);
 	pthread_mutex_lock(&philo->table->death_mutex);
-	
 	if (philo->table->someone_died == 0 || state == DIED)
 	{
 		pthread_mutex_unlock(&philo->table->death_mutex);

@@ -1,13 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitor.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelfadl <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/18 11:37:21 by aelfadl           #+#    #+#             */
+/*   Updated: 2025/06/18 11:37:21 by aelfadl          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 int	check_philosopher_death(t_table *table, int i)
 {
-	long long current_time;
-	long long time_since_last_meal;
-	long long last_meal;
+	long long	current_time;
+	long long	time_since_last_meal;
+	long long	last_meal;
 
 	current_time = get_time();
-	
 	pthread_mutex_lock(&table->meal_mutex);
 	last_meal = table->philos[i].last_meal_time;
 	pthread_mutex_unlock(&table->meal_mutex);

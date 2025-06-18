@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   normal_philos.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelfadl <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/18 11:37:21 by aelfadl           #+#    #+#             */
+/*   Updated: 2025/06/18 11:37:21 by aelfadl          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 void	sleep_and_think(t_philo *philo)
@@ -23,7 +35,7 @@ void	take_forks(t_philo *philo)
 	if ((philo->id % 2) == 0)
 	{
 		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
-		print_state(philo, TOOK_FORK);	
+		print_state(philo, TOOK_FORK);
 		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
 		print_state(philo, TOOK_FORK);
 	}
@@ -60,7 +72,7 @@ void	*routine_even_pair(void *arg)
 		take_forks(philo);
 		eat(philo);
 		if (philo_should_exit(philo))
-			break;
+			break ;
 		sleep_and_think(philo);
 	}
 	return (NULL);

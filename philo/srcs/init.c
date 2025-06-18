@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelfadl <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/18 11:32:02 by aelfadl           #+#    #+#             */
+/*   Updated: 2025/06/18 11:37:21 by aelfadl          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 int	check_args(int argc, char **argv)
@@ -14,7 +26,7 @@ int	check_args(int argc, char **argv)
 		while (argv[i][j])
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return(printf("%s\n", "Invalid input arguments"), 0);
+				return (printf("%s\n", "Invalid input arguments"), 0);
 			j++;
 		}
 		i++;
@@ -83,4 +95,3 @@ void	init_philos(t_table *table)
 	else
 		assign_forks_odd(table);
 }
-

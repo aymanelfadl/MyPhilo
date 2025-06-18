@@ -1,11 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelfadl <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/18 11:31:44 by aelfadl           #+#    #+#             */
+/*   Updated: 2025/06/18 11:37:21 by aelfadl          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 int	philo_should_exit(t_philo *philo)
 {
 	if (philo->table->num_of_philos == 1)
-		return 1;
-	if ((philo->table->num_times_to_eat != -1 && 
-		philo->meals_eaten >= philo->table->num_times_to_eat) || philo->table->num_of_philos == 1 ) 
+		return (1);
+	if ((philo->table->num_times_to_eat != -1
+			&& philo->meals_eaten >= philo->table->num_times_to_eat)
+		|| philo->table->num_of_philos == 1)
 		return (1);
 	return (0);
 }
