@@ -23,7 +23,7 @@ int	check_philosopher_death(t_table *table, int i)
 	last_meal = table->philos[i].last_meal_time;
 	pthread_mutex_unlock(&table->meal_mutex);
 	time_since_last_meal = current_time - last_meal;
-	if (time_since_last_meal > table->time_to_die)
+	if (time_since_last_meal >= table->time_to_die)
 	{
 		pthread_mutex_lock(&table->death_mutex);
 		if (table->someone_died == 0)

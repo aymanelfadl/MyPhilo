@@ -12,7 +12,7 @@
 
 #include "../includes/philo.h"
 
-static int	run_philo_simulation(t_table *table)
+static	int	run_philo_simulation(t_table *table)
 {
 	if (!init_mutex(table))
 		return (0);

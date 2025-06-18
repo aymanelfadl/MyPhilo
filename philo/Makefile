@@ -1,13 +1,10 @@
 NAME	= philo
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror 
-# -g3 -O0 -fsanitize=thread -pthread
-RM		= rm -f
+CFLAGS	= -Wall -Wextra -Werror -pthread
 
 SRCS_DIR	= srcs/
 INCS_DIR	= includes/
-OBJS_DIR	= objs/
 
 SRCS	= $(SRCS_DIR)main.c \
 		  $(SRCS_DIR)init.c \
@@ -19,24 +16,21 @@ SRCS	= $(SRCS_DIR)main.c \
 		  $(SRCS_DIR)init_utils.c \
 		  $(SRCS_DIR)normal_philos.c
 
-OBJS	= $(patsubst $(SRCS_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS))
+OBJS	= $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^ -pthread
+	$(CC) $(CFLAGS) -o $@ $^
 
-$(OBJS_DIR)%.o: $(SRCS_DIR)%.c | $(OBJS_DIR)
-	$(CC) $(CFLAGS) -I$(INCS_DIR) -c $< -o $@
-
-$(OBJS_DIR):
-	mkdir -p $@
+%.o: %.c $(INCS_DIR)/philo.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) -r $(OBJS_DIR)
+	rm -f $(OBJS)
 
 fclean: clean
-	$(RM) $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 

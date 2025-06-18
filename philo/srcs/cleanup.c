@@ -14,8 +14,6 @@
 
 int	philo_should_exit(t_philo *philo)
 {
-	if (philo->table->num_of_philos == 1)
-		return (1);
 	if ((philo->table->num_times_to_eat != -1
 			&& philo->meals_eaten >= philo->table->num_times_to_eat)
 		|| philo->table->num_of_philos == 1)
