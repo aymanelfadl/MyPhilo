@@ -104,7 +104,6 @@ void					custom_sleep(int time_ms, t_philo *philo);
 
 /* Monitoring functions */
 int						check_philosopher_death(t_table *table, int i);
-int						check_philo_ate_enough(t_table *table, int i);
 int						check_all_ate_enough(t_table *table);
 int						monitor_each_philosopher(t_table *table);
 void					*routine_even_pair(void *arg);
