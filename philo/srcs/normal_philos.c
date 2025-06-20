@@ -19,6 +19,20 @@ void	sleep_and_think(t_philo *philo)
 	print_state(philo, THINKING);
 }
 
+void	put_forks(t_philo *philo)
+{
+	if ((philo->id % 2) == 0)
+	{
+		pthread_mutex_unlock(&philo->table->forks[philo->left_fork]);
+		pthread_mutex_unlock(&philo->table->forks[philo->right_fork]);
+	}
+	else
+	{
+		pthread_mutex_unlock(&philo->table->forks[philo->right_fork]);
+		pthread_mutex_unlock(&philo->table->forks[philo->left_fork]);
+	}
+}
+
 void	eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->meal_mutex);
@@ -48,20 +62,6 @@ void	take_forks(t_philo *philo)
 	}
 }
 
-void	put_forks(t_philo *philo)
-{
-	if ((philo->id % 2) == 0)
-	{
-		pthread_mutex_unlock(&philo->table->forks[philo->left_fork]);
-		pthread_mutex_unlock(&philo->table->forks[philo->right_fork]);
-	}
-	else
-	{
-		pthread_mutex_unlock(&philo->table->forks[philo->right_fork]);
-		pthread_mutex_unlock(&philo->table->forks[philo->left_fork]);
-	}
-}
-
 void	*routine_even_pair(void *arg)
 {
 	t_philo	*philo;
@@ -69,10 +69,10 @@ void	*routine_even_pair(void *arg)
 	philo = (t_philo *)arg;
 	while (!check_death(philo))
 	{
-		take_forks(philo);
-		eat(philo);
 		if (philo_should_exit(philo))
 			break ;
+		take_forks(philo);
+		eat(philo);
 		sleep_and_think(philo);
 	}
 	return (NULL);

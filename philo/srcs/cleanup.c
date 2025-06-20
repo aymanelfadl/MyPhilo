@@ -16,12 +16,8 @@ int	philo_should_exit(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->meal_mutex);
 	if (philo->table->all_ate)
-	{
-		pthread_mutex_unlock(&philo->table->meal_mutex);
-		return 1;
-	}
-	pthread_mutex_unlock(&philo->table->meal_mutex);
-	return 0;
+		return (pthread_mutex_unlock(&philo->table->meal_mutex), 1);
+	return (pthread_mutex_unlock(&philo->table->meal_mutex), 0);
 }
 
 int	check_death(t_philo *philo)

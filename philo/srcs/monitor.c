@@ -38,18 +38,6 @@ int	check_philosopher_death(t_table *table, int i)
 	return (0);
 }
 
-int	check_philo_ate_enough(t_table *table, int i)
-{
-	pthread_mutex_lock(&table->meal_mutex);
-	if (table->philos[i].meals_eaten < table->num_times_to_eat)
-	{
-		pthread_mutex_unlock(&table->meal_mutex);
-		return (0);
-	}
-	pthread_mutex_unlock(&table->meal_mutex);
-	return (1);
-}
-
 int	check_all_ate_enough(t_table *table)
 {
 	int	i;
@@ -59,8 +47,10 @@ int	check_all_ate_enough(t_table *table)
 	i = 0;
 	while (i < table->num_of_philos)
 	{
-		if (!check_philo_ate_enough(table, i))
-			return 0;
+		pthread_mutex_lock(&table->meal_mutex);
+		if (table->philos[i].meals_eaten < table->num_times_to_eat)
+			return (pthread_mutex_unlock(&table->meal_mutex), 0);
+		pthread_mutex_unlock(&table->meal_mutex);
 		i++;
 	}
 	return (1);
