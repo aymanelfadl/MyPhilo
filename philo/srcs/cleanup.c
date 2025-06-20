@@ -14,11 +14,14 @@
 
 int	philo_should_exit(t_philo *philo)
 {
-	if ((philo->table->num_times_to_eat != -1
-			&& philo->meals_eaten >= philo->table->num_times_to_eat)
-		|| philo->table->num_of_philos == 1)
-		return (1);
-	return (0);
+	pthread_mutex_lock(&philo->table->meal_mutex);
+	if (philo->table->all_ate)
+	{
+		pthread_mutex_unlock(&philo->table->meal_mutex);
+		return 1;
+	}
+	pthread_mutex_unlock(&philo->table->meal_mutex);
+	return 0;
 }
 
 int	check_death(t_philo *philo)

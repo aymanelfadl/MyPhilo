@@ -12,13 +12,17 @@
 
 #include "../includes/philo.h"
 
-void	custom_sleep(int time_ms)
+void	custom_sleep(int time_ms, t_philo *philo)
 {
 	long long	start;
 
 	start = get_time();
 	while ((get_time() - start) < time_ms)
+	{
+		if (check_death(philo))
+			break ;
 		usleep(50);
+	}
 }
 
 int	ft_atoi(const char *str)

@@ -53,19 +53,17 @@ int	check_philo_ate_enough(t_table *table, int i)
 int	check_all_ate_enough(t_table *table)
 {
 	int	i;
-	int	all_ate_enough;
 
 	if (table->num_times_to_eat == -1)
 		return (0);
 	i = 0;
-	all_ate_enough = 1;
 	while (i < table->num_of_philos)
 	{
 		if (!check_philo_ate_enough(table, i))
-			all_ate_enough = 0;
+			return 0;
 		i++;
 	}
-	return (all_ate_enough);
+	return (1);
 }
 
 int	monitor_each_philosopher(t_table *table)
@@ -92,7 +90,12 @@ void	*monitor_routine(void *arg)
 		if (monitor_each_philosopher(table))
 			return (NULL);
 		if (check_all_ate_enough(table))
+		{
+			pthread_mutex_lock(&table->meal_mutex);
+			table->all_ate = 1;
+			pthread_mutex_unlock(&table->meal_mutex);
 			return (NULL);
+		}
 	}
 	return (NULL);
 }

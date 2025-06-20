@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelfadl <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/20 13:25:21 by aelfadl           #+#    #+#             */
+/*   Updated: 2025/06/20 13:25:23 by aelfadl          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -31,6 +43,7 @@ struct					s_table
 	long long			start_time;
 	int					someone_died;
 	int					current_turn;
+	int					all_ate;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		print_mutex;
 	pthread_mutex_t		death_mutex;
@@ -87,7 +100,7 @@ void					assign_forks_even(t_table *table);
 /* Main utility functions */
 int						init_simulation(t_table *table);
 void					finish_simulation(t_table *table);
-void					custom_sleep(int time_ms);
+void					custom_sleep(int time_ms, t_philo *philo);
 
 /* Monitoring functions */
 int						check_philosopher_death(t_table *table, int i);

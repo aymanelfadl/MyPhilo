@@ -15,7 +15,7 @@
 void	sleep_and_think(t_philo *philo)
 {
 	print_state(philo, SLEEPING);
-	custom_sleep(philo->table->time_to_sleep);
+	custom_sleep(philo->table->time_to_sleep, philo);
 	print_state(philo, THINKING);
 }
 
@@ -26,7 +26,7 @@ void	eat(t_philo *philo)
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->table->meal_mutex);
 	print_state(philo, EATING);
-	custom_sleep(philo->table->time_to_eat);
+	custom_sleep(philo->table->time_to_eat, philo);
 	put_forks(philo);
 }
 

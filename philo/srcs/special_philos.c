@@ -16,7 +16,7 @@ static void	handle_single_philo(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
 	print_state(philo, TOOK_FORK);
-	custom_sleep(philo->table->time_to_die);
+	custom_sleep(philo->table->time_to_die, philo);
 	pthread_mutex_unlock(&philo->table->forks[philo->left_fork]);
 }
 
@@ -27,7 +27,7 @@ void	special_eat(t_philo *philo)
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->table->meal_mutex);
 	print_state(philo, EATING);
-	custom_sleep(philo->table->time_to_eat);
+	custom_sleep(philo->table->time_to_eat, philo);
 	pthread_mutex_lock(&philo->table->turn_mutex);
 	put_forks(philo);
 	philo->table->current_turn = (philo->table->current_turn + 1) % 3;
@@ -51,8 +51,6 @@ void	wait_for_turn(t_philo *philo)
 void	take_special_forks(t_philo *philo)
 {
 	wait_for_turn(philo);
-	if (philo->table->num_of_philos == 1)
-		return (handle_single_philo(philo));
 	take_forks(philo);
 }
 
@@ -63,6 +61,8 @@ void	*routine_special_group(void *arg)
 	philo = (t_philo *)arg;
 	while (!check_death(philo))
 	{
+		if (philo->table->num_of_philos == 1)
+			handle_single_philo(philo);
 		if (philo_should_exit(philo))
 			break ;
 		take_special_forks(philo);

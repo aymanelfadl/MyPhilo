@@ -42,6 +42,7 @@ int	init_table(t_table *table, int argc, char **argv)
 	table->time_to_sleep = ft_atoi(argv[4]);
 	table->someone_died = 0;
 	table->current_turn = 0;
+	table->all_ate = 0;
 	if (argc == 6)
 		table->num_times_to_eat = ft_atoi(argv[5]);
 	else
