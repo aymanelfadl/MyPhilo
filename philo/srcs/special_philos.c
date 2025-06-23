@@ -16,7 +16,6 @@ static void	handle_single_philo(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
 	print_state(philo, TOOK_FORK);
-	custom_sleep(philo->table->time_to_die, philo);
 	pthread_mutex_unlock(&philo->table->forks[philo->left_fork]);
 }
 
